@@ -6,7 +6,6 @@ import 'container_box.dart';
 import 'data_container.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-
 const activeColor = Color(0xff0073dd);
 const inActiveColor = Color(0xFF212121);
 
@@ -20,11 +19,12 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   Color maleBoxColor = activeColor;
   Color femaleBoxColor = inActiveColor;
+
   int height = 180;
   int weight = 20;
   int age = 25;
-  String result = "";
 
+  String result = "";
 
   void updateBoxColor(int gender) {
     if (gender == 1) {
@@ -51,24 +51,23 @@ class _MainScreenState extends State<MainScreen> {
     return bmi.toStringAsFixed(1);
   }
 
-
-  /* String getInterpretation(double bmi) {
-    if (bmi >= 25.0) {
-      return 'You have higher than normal body weight. Try to excersie more.';
-    } 
-    else if (bmi > 18.5) {
-      return 'You have a normal body weight. Good Job!';
-    } 
-    else {
-      return 'You have lower than normal body weight. You can eat a bit more.';
+  String getBmiStage(double bmi) {
+    if (bmi < 18.5) {
+      return "Underweight";
+    } else if (bmi >= 18.5 && bmi < 24.9) {
+      return "Normal";
+    } else if (bmi >= 25 && bmi < 29.9) {
+      return "Overweight";
+    } else {
+      return "Obese";
     }
-  } */
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("BMI Calculator"),
+        title: const Text("BMI Calculator"),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -85,7 +84,9 @@ class _MainScreenState extends State<MainScreen> {
                     child: ContainerBox(
                       boxColor: maleBoxColor,
                       childwidget: DataContainer(
-                          icon: FontAwesomeIcons.male, title: 'MALE'),
+                        icon: FontAwesomeIcons.male,
+                        title: 'MALE',
+                      ),
                     ),
                   ),
                 ),
@@ -99,18 +100,22 @@ class _MainScreenState extends State<MainScreen> {
                     child: ContainerBox(
                       boxColor: femaleBoxColor,
                       childwidget: DataContainer(
-                          icon: FontAwesomeIcons.female, title: 'FEMALE'),
+                        icon: FontAwesomeIcons.female,
+                        title: 'FEMALE',
+                      ),
                     ),
                   ),
                 ),
               ],
             ),
+
             ContainerBox(
               boxColor: inActiveColor,
               childwidget: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text('HEIGHT', style: textStyle1),
+
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.baseline,
@@ -120,6 +125,7 @@ class _MainScreenState extends State<MainScreen> {
                       Text('cm', style: textStyle1),
                     ],
                   ),
+
                   Slider(
                     value: height.toDouble(),
                     min: 120,
@@ -135,6 +141,7 @@ class _MainScreenState extends State<MainScreen> {
                 ],
               ),
             ),
+
             Row(
               children: <Widget>[
                 Expanded(
@@ -144,6 +151,7 @@ class _MainScreenState extends State<MainScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Text('WEIGHT', style: textStyle1),
+
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.baseline,
@@ -153,6 +161,7 @@ class _MainScreenState extends State<MainScreen> {
                             Text('kg', style: textStyle1),
                           ],
                         ),
+
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
@@ -163,10 +172,14 @@ class _MainScreenState extends State<MainScreen> {
                                 });
                               },
                               backgroundColor: activeColor,
-                              child: Icon(FontAwesomeIcons.plus,
-                                  color: Colors.white),
+                              child: const Icon(
+                                FontAwesomeIcons.plus,
+                                color: Colors.white,
+                              ),
                             ),
+
                             const SizedBox(width: 10.0),
+
                             FloatingActionButton(
                               onPressed: () {
                                 setState(() {
@@ -176,8 +189,10 @@ class _MainScreenState extends State<MainScreen> {
                                 });
                               },
                               backgroundColor: activeColor,
-                              child: Icon(FontAwesomeIcons.minus,
-                                  color: Colors.white),
+                              child: const Icon(
+                                FontAwesomeIcons.minus,
+                                color: Colors.white,
+                              ),
                             ),
                           ],
                         ),
@@ -185,6 +200,7 @@ class _MainScreenState extends State<MainScreen> {
                     ),
                   ),
                 ),
+
                 Expanded(
                   child: ContainerBox(
                     boxColor: inActiveColor,
@@ -192,7 +208,9 @@ class _MainScreenState extends State<MainScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Text('AGE', style: textStyle1),
+
                         Text(age.toString(), style: textStyle2),
+
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
@@ -205,10 +223,14 @@ class _MainScreenState extends State<MainScreen> {
                                 });
                               },
                               backgroundColor: activeColor,
-                              child: Icon(FontAwesomeIcons.plus,
-                                  color: Colors.white),
+                              child: const Icon(
+                                FontAwesomeIcons.plus,
+                                color: Colors.white,
+                              ),
                             ),
+
                             const SizedBox(width: 10.0),
+
                             FloatingActionButton(
                               onPressed: () {
                                 setState(() {
@@ -218,8 +240,10 @@ class _MainScreenState extends State<MainScreen> {
                                 });
                               },
                               backgroundColor: activeColor,
-                              child: Icon(FontAwesomeIcons.minus,
-                                  color: Colors.white),
+                              child: const Icon(
+                                FontAwesomeIcons.minus,
+                                color: Colors.white,
+                              ),
                             ),
                           ],
                         ),
@@ -229,14 +253,14 @@ class _MainScreenState extends State<MainScreen> {
                 ),
               ],
             ),
+
             ContainerBox(
               boxColor: inActiveColor,
               childwidget: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  // Text('Developed with ❤ by Swapnil Srivastava',
-                  //     style: textStyle1),
                   const SizedBox(height: 10.0),
+
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
@@ -246,31 +270,38 @@ class _MainScreenState extends State<MainScreen> {
                           launch('https://port-7f3c1.web.app/');
                         },
                         backgroundColor: inActiveColor,
-                        child: Icon(FontAwesomeIcons.portrait,
-                            color: Colors.white),
+                        child: const Icon(
+                          FontAwesomeIcons.portrait,
+                          color: Colors.white,
+                        ),
                       ),
+
                       const SizedBox(width: 10.0),
+
                       FloatingActionButton(
                         elevation: 0,
                         onPressed: () {
                           launch('https://github.com/SASMITHA-R');
                         },
                         backgroundColor: inActiveColor,
-                        child: Icon(FontAwesomeIcons.github,
-                            color: Colors.white),
+                        child: const Icon(
+                          FontAwesomeIcons.github,
+                          color: Colors.white,
+                        ),
                       ),
-                      const SizedBox(width: 10.0),
-                      
-                     
                     ],
                   ),
                 ],
               ),
             ),
+
             GestureDetector(
               onTap: () {
                 setState(() {
                   result = calculateBmi(weight, height);
+
+                  double bmiValue = double.parse(result);
+
                   showDialog(
                     context: context,
                     builder: (BuildContext context) {
@@ -280,15 +311,35 @@ class _MainScreenState extends State<MainScreen> {
                           borderRadius: BorderRadius.circular(20.0),
                         ),
                         child: SizedBox(
-                          height: 200.0,
+                          height: 250.0,
                           child: Container(
                             color: inActiveColor,
                             margin: const EdgeInsets.all(10.0),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
-                                Text('Your BMI', style: textStyle1),
-                                Text(result.toString(), style: textStyle2),
+                                Text(
+                                  'Your BMI',
+                                  style: textStyle1,
+                                ),
+
+                                const SizedBox(height: 15),
+
+                                Text(
+                                  result,
+                                  style: textStyle2,
+                                ),
+
+                                const SizedBox(height: 15),
+
+                                Text(
+                                  getBmiStage(bmiValue),
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
                               ],
                             ),
                           ),
@@ -299,16 +350,16 @@ class _MainScreenState extends State<MainScreen> {
                 });
               },
               child: Container(
+                width: double.infinity,
+                height: 80.0,
+                color: activeColor,
+                margin: const EdgeInsets.only(top: 10.0),
                 child: const Center(
                   child: Text(
                     'Calculate',
                     style: textStyle3,
                   ),
                 ),
-                width: double.infinity,
-                height: 80.0,
-                color: activeColor,
-                margin: const EdgeInsets.only(top: 10.0),
               ),
             )
           ],
